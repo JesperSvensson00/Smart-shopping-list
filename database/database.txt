@@ -1,0 +1,30 @@
+CREATE TABLE users (
+  username TEXT PRIMARY KEY,
+  password TEXT NOT NULL,
+  logged_in INTEGER
+);
+
+CREATE TABLE products (
+  product_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL
+);
+
+CREATE TABLE bought_products (
+  bp_id INTEGER PRIMARY KEY AUTOINCREMENT,
+  product_id INTEGER,
+  purchase_date date NOT NULL,
+  username TEXT,
+  replacement_id INTEGER,
+  FOREIGN KEY (product_id) REFERENCES products (product_id),
+  FOREIGN KEY (username) REFERENCES users (username)
+  FOREIGN KEY (replacement_id) REFERENCES products (product_id)
+);
+
+CREATE TABLE list (
+  list_id INTEGER,
+  product_id INTEGER,
+  username TEXT,
+  PRIMARY KEY (list_id, product_id) 
+  FOREIGN KEY (product_id) REFERENCES products (product_id),
+  FOREIGN KEY (username) REFERENCES users (username)
+);
